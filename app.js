@@ -49,12 +49,12 @@ async function checkPending(){if(!Game||!I)return;try{const r=await Game.pending
 function openUrl(u){if(Game)Game.openUrl({url:u}).catch(()=>{});else window.open(u,'_blank')}
 
 /* ---------- link cameră + QR ---------- */
-const WEB=(window.DN_WEB||(NATIVE&&API?API:location.origin+location.pathname)).replace(/index\.html$/,'').replace(/([^/])$/,'$1/');
+const WEB=(window.DN_WEB||(NATIVE&&API?API:new URL('.',location.href).href)).replace(/index\.html$/,'').replace(/([^/])$/,'$1/');
 const roomLink=c=>WEB+'?c='+c;
 if(!NATIVE)$('#gapk').hidden=false;
 if(window.DN_APK)$('#gapk').href=window.DN_APK;
 if(window.DN_GITHUB)$('#ggh').href=window.DN_GITHUB;
-if(window.DN_MAIL)$('#gmail').href='mailto:'+window.DN_MAIL+'?subject='+encodeURIComponent("Idei pentru DE-A ȘNURU'");
+if(window.DN_MAIL)$('#gmail').href='mailto:'+window.DN_MAIL+'?subject='+encodeURIComponent("Idei pentru DE-A ȘNURU");
 if(NATIVE)['#ggh','#gmail'].forEach(k=>{$(k).onclick=e=>{e.preventDefault();openUrl($(k).href)}});
 const copyTxt=(u,ok)=>{(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(ok,()=>prompt('Copiază linkul',u))};
 function showQR(){if(!S)return;const u=roomLink(S.code);$('#qrcode').textContent=S.code;$('#qrlink').textContent=u;

@@ -1,55 +1,70 @@
 (() => {
   const $ = (s) => document.querySelector(s);
   const mapEl = $('#heroMap');
-  let map = null;
   const info = $('#mapInfo');
-  const points = [
-    {lat:47.0105,lng:28.8638,title:'Punct central',text:'Un reper demonstrativ pe harta interactivă. Nu reprezintă poziția unui jucător real.',tone:'red'},
-    {lat:47.0178,lng:28.8502,title:'Zonă de explorare',text:'Punct de interes ilustrativ. Într-o partidă reală, harta poate afișa pozițiile participanților.',tone:'white'},
-    {lat:47.0042,lng:28.8781,title:'Punct de observație',text:'Un al treilea reper demonstrativ pentru a explora harta și animațiile.',tone:'red'}
+  const CITY_CENTER = [47.5037123, 28.3650351]; // Telenești town centre, Moldova
+  const players = [
+    {id:'hider-01',name:'Hider 01',role:'Hider',kind:'hider',lat:47.5050,lng:28.3627,detail:'Participant ascuns. Poziție simulată pentru prezentarea interfeței.'},
+    {id:'hider-02',name:'Hider 02',role:'Hider',kind:'hider',lat:47.5015,lng:28.3658,detail:'Participant ascuns. Poziție simulată pentru prezentarea interfeței.'},
+    {id:'hider-03',name:'Hider 03',role:'Hider',kind:'hider',lat:47.5046,lng:28.3690,detail:'Participant ascuns. Poziție simulată pentru prezentarea interfeței.'},
+    {id:'seeker-01',name:'Seeker 01',role:'Seeker',kind:'seeker',lat:47.5070,lng:28.3662,detail:'Căutător. Poziție simulată pentru prezentarea interfeței.'},
+    {id:'seeker-02',name:'Seeker 02',role:'Seeker',kind:'seeker',lat:47.4999,lng:28.3618,detail:'Căutător. Poziție simulată pentru prezentarea interfeței.'},
+    {id:'spectator-01',name:'Spectator 01',role:'Spectator',kind:'spectator',lat:47.5033,lng:28.3579,detail:'Urmărește partida. Poziție simulată pentru prezentarea interfeței.'}
   ];
+  let map = null;
 
-  function showPoint(p) {
-    $('#mapInfoTitle').textContent = p.title;
-    $('#mapInfoText').textContent = p.text;
+  function showPlayer(player) {
+    $('#mapInfoTitle').textContent = `${player.name} · ${player.role}`;
+    $('#mapInfoText').textContent = player.detail;
     info.classList.add('visible');
   }
-  function markerIcon(tone) {
+  function markerIcon(player) {
     return L.divIcon({
       className: '',
-      html: `<div class="map-pin ${tone === 'white' ? 'white' : ''}"><span class="pin-ring"></span><span class="pin-core"></span></div>`,
-      iconSize: [22,22], iconAnchor: [11,11]
+      html: `<div class="map-pin ${player.kind}" role="img" aria-label="${player.role}"><span class="pin-ring"></span><span class="pin-core"></span></div>`,
+      iconSize: [28,28], iconAnchor: [14,14],
+      tooltipAnchor: [0,-13]
     });
   }
+
   if (window.L && mapEl) {
-    map = L.map(mapEl, {zoomControl:false, attributionControl:true, scrollWheelZoom:false, dragging:true, zoomSnap:.5, minZoom:11, maxZoom:17}).setView([47.0105,28.8638],13);
+    map = L.map(mapEl, {
+      zoomControl:false, attributionControl:true, scrollWheelZoom:false,
+      dragging:true, zoomSnap:.5, minZoom:13, maxZoom:18
+    }).setView(CITY_CENTER, 15);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom:19, attribution:'&copy; OpenStreetMap contributors'
     }).addTo(map);
-    points.forEach((p) => {
-      L.marker([p.lat,p.lng], {icon:markerIcon(p.tone), keyboard:true})
-        .addTo(map).on('click', () => showPoint(p));
+
+    const markerBounds = [];
+    players.forEach((player) => {
+      const marker = L.marker([player.lat, player.lng], {
+        icon:markerIcon(player), keyboard:true, title:`${player.name} — ${player.role}`
+      }).addTo(map);
+      marker.bindTooltip(player.name, {direction:'top', offset:[0,-7], className:'player-tooltip', opacity:.96});
+      marker.on('click', () => showPlayer(player));
+      markerBounds.push([player.lat, player.lng]);
     });
-    L.polyline(points.map(p => [p.lat,p.lng]), {color:'#ff5149',weight:1,opacity:.4,dashArray:'4 9'}).addTo(map);
+    map.fitBounds(markerBounds, {padding:[70,70], maxZoom:15.5, animate:false});
     $('#zoomIn').addEventListener('click', () => map.zoomIn());
     $('#zoomOut').addEventListener('click', () => map.zoomOut());
-    $('#resetMap').addEventListener('click', () => map.flyTo([47.0105,28.8638],13,{duration:.8}));
+    $('#resetMap').addEventListener('click', () => map.flyToBounds(markerBounds, {padding:[70,70], maxZoom:15.5, duration:.8}));
     window.addEventListener('resize', () => map.invalidateSize());
     setTimeout(() => map.invalidateSize(), 250);
-  } else {
+  } else if (mapEl) {
     mapEl.innerHTML = '<div style="height:100%;display:grid;place-items:center;color:#aaa;font-size:12px">Harta nu este disponibilă momentan. Verifică conexiunea la internet.</div>';
   }
-  $('#mapInfoClose').addEventListener('click', () => info.classList.remove('visible'));
+  $('#mapInfoClose')?.addEventListener('click', () => info.classList.remove('visible'));
 
-  // Tilt discret pentru elementele 3D. Oprit pe touch și pentru reduced motion.
+  // Parallax discret al hărții și tilt pentru cardurile de rol.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion && matchMedia('(pointer:fine)').matches) {
-    document.querySelectorAll('[data-tilt], .floating-card').forEach((card) => {
+  if (!reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+    document.querySelectorAll('[data-tilt]').forEach((card) => {
       card.addEventListener('pointermove', (event) => {
         const r = card.getBoundingClientRect();
         const x = (event.clientX-r.left)/r.width-.5;
         const y = (event.clientY-r.top)/r.height-.5;
-        card.style.transform = `perspective(800px) rotateY(${x*9}deg) rotateX(${-y*9}deg) translateZ(8px)`;
+        card.style.transform = `perspective(800px) rotateY(${x*5}deg) rotateX(${-y*5}deg) translateZ(5px)`;
       });
       card.addEventListener('pointerleave', () => card.style.transform = '');
     });
@@ -63,68 +78,62 @@
     hero.addEventListener('pointerleave', () => $('.hero-map-wrap').style.transform = '');
   }
 
-  // Navigare mobilă
+  // Navigare mobilă.
   const menu = $('#menuToggle'), nav = $('.desktop-nav');
-  menu.addEventListener('click', () => {
+  menu?.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     menu.setAttribute('aria-expanded', String(open));
   });
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     nav.classList.remove('open'); menu.setAttribute('aria-expanded','false');
   }));
 
-  // PWA: folosește promptul nativ numai când browserul îl oferă.
+  // PWA: afișează promptul nativ doar atunci când browserul îl oferă.
   let installPrompt = null;
   const modal = $('#installModal');
   const message = $('#installMessage');
   const action = $('#modalAction');
   function openInstallHelp(text, buttonText='Am înțeles') {
+    if (!modal || !message || !action) return;
     message.textContent = text;
     action.textContent = buttonText;
     modal.hidden = false;
   }
-  function closeInstallHelp() { modal.hidden = true; }
+  function closeInstallHelp() { if (modal) modal.hidden = true; }
   window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault();
-    installPrompt = event;
-    $('#installLabel').textContent = 'Instalează aplicația';
+    event.preventDefault(); installPrompt = event;
+    const label = $('#installLabel'); if (label) label.textContent = 'Instalează aplicația';
   });
   window.addEventListener('appinstalled', () => {
     installPrompt = null;
-    $('#installLabel').textContent = 'Aplicație instalată';
-    openInstallHelp('DE-A ȘNURU’ a fost instalată cu succes pe dispozitiv.');
+    const label = $('#installLabel'); if (label) label.textContent = 'Aplicație instalată';
+    openInstallHelp('DE-A ȘNURU a fost instalată cu succes pe dispozitiv.');
   });
   async function installApp() {
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-      openInstallHelp('Aplicația este deja instalată pe acest dispozitiv.');
-      return;
+      openInstallHelp('Aplicația este deja instalată pe acest dispozitiv.'); return;
     }
     if (installPrompt) {
       installPrompt.prompt();
       const result = await installPrompt.userChoice;
       installPrompt = null;
       if (result && result.outcome === 'accepted') {
-        $('#installLabel').textContent = 'Instalare solicitată';
+        const label = $('#installLabel'); if (label) label.textContent = 'Instalare solicitată';
       }
       return;
     }
     const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
     const isSafari = isIOS || (/safari/i.test(navigator.userAgent) && !/chrome|android/i.test(navigator.userAgent));
-    if (isIOS) {
-      openInstallHelp('Pe iPhone sau iPad: apasă butonul Partajare din Safari, apoi „Adaugă la ecranul principal”.');
-    } else if (isSafari) {
-      openInstallHelp('Acest browser nu oferă promptul automat de instalare. Folosește opțiunea „Add to Dock” sau „Add to Home Screen”, dacă este disponibilă.');
-    } else {
-      openInstallHelp('Instalarea nu este disponibilă în acest moment. Deschide pagina în Chrome sau Edge, verifică meniul browserului și caută opțiunea „Instalează aplicația”. Pagina trebuie servită prin HTTPS.');
-    }
+    if (isIOS) openInstallHelp('Pe iPhone sau iPad: apasă butonul Partajare din Safari, apoi „Adaugă la ecranul principal”.');
+    else if (isSafari) openInstallHelp('Acest browser nu oferă promptul automat de instalare. Folosește opțiunea „Add to Dock” sau „Add to Home Screen”, dacă este disponibilă.');
+    else openInstallHelp('Instalarea nu este disponibilă în acest moment. Deschide pagina în Chrome sau Edge, verifică meniul browserului și caută opțiunea „Instalează aplicația”. Pagina trebuie servită prin HTTPS.');
   }
-  $('#installBtn').addEventListener('click', installApp);
-  $('#installBtnBottom').addEventListener('click', installApp);
-  $('#modalClose').addEventListener('click', closeInstallHelp);
-  action.addEventListener('click', closeInstallHelp);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeInstallHelp(); });
+  $('#installBtn')?.addEventListener('click', installApp);
+  $('#installBtnBottom')?.addEventListener('click', installApp);
+  $('#modalClose')?.addEventListener('click', closeInstallHelp);
+  action?.addEventListener('click', closeInstallHelp);
+  modal?.addEventListener('click', (e) => { if (e.target === modal) closeInstallHelp(); });
 
-  // Înregistrează același service worker al aplicației, fără să atingă fișierele existente.
   if ('serviceWorker' in navigator && !window.Capacitor && location.protocol !== 'file:') {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }

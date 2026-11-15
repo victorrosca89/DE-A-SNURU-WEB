@@ -12,15 +12,19 @@ Nu există două jocuri identice. Există doar cei care caută și cei care înc
 
 | | |
 |---|---|
-| 🌐 **Website** | [victorrosca89.github.io/DE-A-SNURU-WEB](https://victorrosca89.github.io/DE-A-SNURU-WEB/) |
+| 🌐 **Website** | [Pagina de prezentare](https://victorrosca89.github.io/DE-A-SNURU-WEB/) · [Intră în joc](https://victorrosca89.github.io/DE-A-SNURU-WEB/game/) |
 | 📱 **Descarcă APK (Android)** | [DE-A-SNURU.apk · v2.12](https://github.com/victorrosca89/DE-A-SNURU/releases/download/v2.12/DE-A-SNURU.apk) |
 | 💻 **Repository** | [github.com/victorrosca89/DE-A-SNURU](https://github.com/victorrosca89/DE-A-SNURU) |
 
 ---
 
+## Website
+
+Pagina principală (`index.html`) este prezentarea interactivă a proiectului. Jocul este separat în `game.html`, iar ruta fără extensie este disponibilă la `/game/` prin `game/index.html`.
+
 ## Despre joc
 
-DE-A ȘNURU' aduce jocul clasic de-a v-ați ascunselea într-o experiență interactivă, în care participanții devin parte din acțiune.
+DE-A ȘNURU aduce jocul clasic de-a v-ați ascunselea într-o experiență interactivă, în care participanții devin parte din acțiune.
 
 Intră într-o partidă, alătură-te unei echipe și pregătește-te pentru o experiență în care atenția, strategia și instinctul fac diferența.
 
@@ -69,3 +73,7 @@ Website: [victorrosca89.github.io/DE-A-SNURU-WEB](https://victorrosca89.github.i
 *Uneori, cel mai bun lucru pe care îl poți face este să nu fii găsit.*
 
 **DE-A ȘNURU.**
+
+
+### Pagina de prezentare
+Pagina principală include o hartă OpenStreetMap centrată pe Telenești și șase poziții de jucători simulate pentru prezentare: 3 Hider, 2 Seeker și 1 Spectator. Aceste poziții sunt demonstrative și nu sunt poziții GPS reale.

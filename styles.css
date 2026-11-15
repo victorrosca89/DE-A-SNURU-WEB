@@ -283,3 +283,9 @@ button.pill{border:0;padding:4px 10px;border-radius:20px;font-weight:600}
 .qrc small{display:block;color:var(--g3);word-break:break-all;margin-bottom:12px;font-size:12px}
 
 #getapp{margin-top:2px}
+
+.sp-ver{letter-spacing:.2em;text-transform:none;color:#8b8f98}
+.getb[hidden]{display:none}
+.getb.apk{background:#fff;color:#000;border-color:#fff}
+.getrow .getb svg{width:22px;height:22px;display:block}
+.ver{display:block;text-align:center;color:var(--g3);font-size:12px;letter-spacing:.08em;margin-top:4px;opacity:.8}

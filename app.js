@@ -51,6 +51,8 @@ function openUrl(u){if(Game)Game.openUrl({url:u}).catch(()=>{});else window.open
 /* ---------- link cameră + QR ---------- */
 const WEB=(window.DN_WEB||(NATIVE&&API?API:location.origin+location.pathname)).replace(/index\.html$/,'').replace(/([^/])$/,'$1/');
 const roomLink=c=>WEB+'?c='+c;
+if(!NATIVE)$('#gapk').hidden=false;
+if(window.DN_APK)$('#gapk').href=window.DN_APK;
 if(window.DN_GITHUB)$('#ggh').href=window.DN_GITHUB;
 if(window.DN_MAIL)$('#gmail').href='mailto:'+window.DN_MAIL+'?subject='+encodeURIComponent("Idei pentru DE-A ȘNURU'");
 if(NATIVE)['#ggh','#gmail'].forEach(k=>{$(k).onclick=e=>{e.preventDefault();openUrl($(k).href)}});

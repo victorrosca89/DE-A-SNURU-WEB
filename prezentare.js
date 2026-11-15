@@ -12,11 +12,20 @@
     {id:'spectator-01',name:'Spectator 01',role:'Spectator',kind:'spectator',lat:47.5033,lng:28.3579,detail:'Urmărește partida. Poziție simulată pentru prezentarea interfeței.'}
   ];
   let map = null;
+  let infoHideTimer = null;
+
+  function hidePlayerInfo() {
+    if (infoHideTimer) clearTimeout(infoHideTimer);
+    infoHideTimer = null;
+    info?.classList.remove('visible');
+  }
 
   function showPlayer(player) {
+    if (infoHideTimer) clearTimeout(infoHideTimer);
     $('#mapInfoTitle').textContent = `${player.name} · ${player.role}`;
     $('#mapInfoText').textContent = player.detail;
     info.classList.add('visible');
+    infoHideTimer = setTimeout(hidePlayerInfo, 5000);
   }
   function markerIcon(player) {
     return L.divIcon({
@@ -48,13 +57,12 @@
     map.fitBounds(markerBounds, {padding:[70,70], maxZoom:15.5, animate:false});
     $('#zoomIn').addEventListener('click', () => map.zoomIn());
     $('#zoomOut').addEventListener('click', () => map.zoomOut());
-    $('#resetMap').addEventListener('click', () => map.flyToBounds(markerBounds, {padding:[70,70], maxZoom:15.5, duration:.8}));
     window.addEventListener('resize', () => map.invalidateSize());
     setTimeout(() => map.invalidateSize(), 250);
   } else if (mapEl) {
     mapEl.innerHTML = '<div style="height:100%;display:grid;place-items:center;color:#aaa;font-size:12px">Harta nu este disponibilă momentan. Verifică conexiunea la internet.</div>';
   }
-  $('#mapInfoClose')?.addEventListener('click', () => info.classList.remove('visible'));
+  $('#mapInfoClose')?.addEventListener('click', hidePlayerInfo);
 
   // Parallax discret al hărții și tilt pentru cardurile de rol.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

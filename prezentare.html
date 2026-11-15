@@ -31,7 +31,7 @@
     </nav>
     <div class="top-actions">
       <button class="install-btn" id="installBtn" type="button"><span class="install-icon">↓</span><span id="installLabel">Instalează aplicația</span></button>
-      <a class="join-btn" href="game/">Intră în joc <span>↗</span></a>
+      <a class="join-btn" href="./game/">Intră în joc <span>↗</span></a>
       <button class="menu-toggle" id="menuToggle" aria-label="Deschide meniul" aria-expanded="false"><i></i><i></i></button>
     </div>
   </header>
@@ -47,10 +47,7 @@
         <div class="map-controls">
           <button id="zoomIn" aria-label="Mărește harta">+</button>
           <button id="zoomOut" aria-label="Micșorează harta">−</button>
-          <button id="resetMap" aria-label="Resetează harta">⌖</button>
         </div>
-        <div class="map-hint"><span class="hint-pulse"></span> Selectează un jucător de pe hartă</div>
-        <div class="map-orbit orbit-one"></div><div class="map-orbit orbit-two"></div>
       </div>
 
       <div class="hero-content">
@@ -58,7 +55,7 @@
         <h1>Nu te lăsa<br><span>prins.</span></h1>
         <p class="hero-copy">Ascunde-te. Caută. Urmărește. Transformă lumea reală într-un teren de joc în care fiecare decizie contează.</p>
         <div class="hero-buttons">
-          <a class="primary-cta" href="game/">Intră în joc <span>↗</span></a>
+          <a class="primary-cta" href="./game/">Intră în joc <span>↗</span></a>
           <a class="secondary-cta" href="#experienta">Descoperă experiența <span>↓</span></a>
         </div>
       </div>
@@ -80,20 +77,23 @@
         <p>Fiecare participant are un rol. Fiecare rol schimbă felul în care privești harta și partida.</p>
       </div>
             <div class="role-grid">
-        <article class="role-card hider-role" data-tilt>
-          <div class="role-name-line"><span class="role-dot hider-dot" aria-hidden="true"></span><h3>Hider</h3></div>
-          <p class="role-subtitle">Cel ascuns</p>
-          <p class="role-description">Rămâi nedetectat, gândește strategic și folosește terenul în avantajul tău.</p>
+        <article class="role-card hider-card" data-tilt>
+          <div class="role-top"><span>01</span></div>
+          <div class="role-art hider-art"><div class="hide-shape"></div><div class="hide-shadow"></div><div class="hide-cross"></div></div>
+          <div class="role-bottom"><div class="role-bottom-title"><span class="role-dot" aria-hidden="true"></span><div><h3>Hider</h3><p>Cel ascuns</p></div></div><span class="role-arrow">↗</span></div>
+          <p class="role-description">Rămâi nedetectat, gândește strategic și folosește terenul în avantajul tău. Nu lăsa urme.</p>
         </article>
-        <article class="role-card seeker-role" data-tilt>
-          <div class="role-name-line"><span class="role-dot seeker-dot" aria-hidden="true"></span><h3>Seeker</h3></div>
-          <p class="role-subtitle">Vânătorul</p>
-          <p class="role-description">Urmărește indiciile și găsește participanții ascunși înainte ca timpul să expire.</p>
+        <article class="role-card seeker-card" data-tilt>
+          <div class="role-top"><span>02</span></div>
+          <div class="role-art seeker-art"><div class="target-ring"></div><div class="target-core"></div><div class="target-scan"></div></div>
+          <div class="role-bottom"><div class="role-bottom-title"><span class="role-dot" aria-hidden="true"></span><div><h3>Seeker</h3><p>Vânătorul</p></div></div><span class="role-arrow">↗</span></div>
+          <p class="role-description">Urmărește indiciile, analizează pozițiile și găsește participanții ascunși înainte ca timpul să expire.</p>
         </article>
-        <article class="role-card spectator-role" data-tilt>
-          <div class="role-name-line"><span class="role-dot spectator-dot" aria-hidden="true"></span><h3>Spectator</h3></div>
-          <p class="role-subtitle">Observatorul</p>
-          <p class="role-description">Urmărește desfășurarea partidei fără să participi direct.</p>
+        <article class="role-card spectator-card" data-tilt>
+          <div class="role-top"><span>03</span></div>
+          <div class="role-art spectator-art"><div class="spectator-eye"></div><div class="spectator-orbit"></div></div>
+          <div class="role-bottom"><div class="role-bottom-title"><span class="role-dot" aria-hidden="true"></span><div><h3>Spectator</h3><p>Observatorul</p></div></div><span class="role-arrow">↗</span></div>
+          <p class="role-description">Urmărește desfășurarea partidei și rămâi conectat la acțiune fără să participi direct.</p>
         </article>
       </div>
     </section>
@@ -114,7 +114,7 @@
       <div class="section-kicker">04 / E RÂNDUL TĂU</div>
       <h2>Ai curajul<br>să intri <em>în joc?</em></h2>
       <p>Alege-ți numele, conectează-te cu ceilalți și pregătește-te pentru prima partidă.</p>
-      <div class="cta-actions"><a class="primary-cta" href="game/">Începe experiența <span>↗</span></a><button class="secondary-cta install-secondary" id="installBtnBottom">Instalează aplicația <span>↓</span></button></div>
+      <div class="cta-actions"><a class="primary-cta" href="./game/">Începe experiența <span>↗</span></a><button class="secondary-cta install-secondary" id="installBtnBottom">Instalează aplicația <span>↓</span></button></div>
       <div class="cta-bottom"><span>DE-A ȘNURU</span><span>NU TE LĂSA PRINS.</span><span>v2.12</span></div>
     </section>
   </main>

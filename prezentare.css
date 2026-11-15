@@ -52,3 +52,32 @@
 @keyframes playerWave{0%{transform:scale(.65);opacity:.95}100%{transform:scale(1.55);opacity:0}}
 @media(max-width:900px){.map-hint{right:25px;top:50%;bottom:auto}}
 @media(max-width:680px){.map-caption{top:90px;right:20px;font-size:7px}.map-hint{left:18px;right:auto;top:54%;bottom:auto;font-size:7px}.role-card{padding:21px 19px}.role-name-line h3{font-size:19px}.role-description{font-size:10px}}
+
+
+/* 3D role cards restored, with the role colors kept consistent across the site. */
+.role-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.role-card{position:relative;min-height:430px;padding:22px;background:linear-gradient(145deg,#151517,#0b0b0c);border:1px solid var(--line);border-radius:18px;overflow:hidden;transform-style:preserve-3d;transition:border-color .3s,box-shadow .3s;--role-color:#fff}
+.role-card:hover{border-color:color-mix(in srgb,var(--role-color) 60%,transparent);box-shadow:0 25px 70px #0009}
+.hider-card{--role-color:#ff4545}.seeker-card{--role-color:#ffd43b}.spectator-card{--role-color:#4da3ff}
+.role-top{display:flex;justify-content:space-between;align-items:center;color:#666;font-size:9px;letter-spacing:.14em;transform:translateZ(24px)}
+.role-art{height:220px;position:relative;display:grid;place-items:center;perspective:500px;transform-style:preserve-3d;transform:translateZ(28px)}
+.target-ring{width:130px;height:130px;border:1px solid color-mix(in srgb,var(--role-color) 38%,transparent);border-radius:50%;position:absolute;box-shadow:0 0 40px color-mix(in srgb,var(--role-color) 9%,transparent),inset 0 0 35px color-mix(in srgb,var(--role-color) 9%,transparent);animation:targetpulse 3s ease-in-out infinite}
+.target-ring:before,.target-ring:after{content:"";position:absolute;inset:15px;border:1px dashed color-mix(in srgb,var(--role-color) 42%,transparent);border-radius:50%}
+.target-ring:after{inset:32px;border-style:solid}
+.target-core{width:11px;height:11px;border-radius:50%;background:var(--role-color);box-shadow:0 0 25px var(--role-color);z-index:2}
+.target-scan{position:absolute;width:155px;height:1px;background:linear-gradient(90deg,transparent,var(--role-color),transparent);transform:rotate(-40deg);animation:scan 4s linear infinite}
+.hide-shape{width:105px;height:105px;border:1px solid color-mix(in srgb,var(--role-color) 80%,white);transform:rotateX(58deg) rotateZ(45deg);box-shadow:18px 18px 0 -1px color-mix(in srgb,var(--role-color) 11%,transparent),36px 36px 0 -1px color-mix(in srgb,var(--role-color) 7%,transparent);animation:shapeFloat 5s ease-in-out infinite}
+.hide-shadow{position:absolute;width:150px;height:20px;background:color-mix(in srgb,var(--role-color) 13%,transparent);filter:blur(18px);border-radius:50%;bottom:34px}
+.hide-cross{position:absolute;width:140px;height:1px;background:color-mix(in srgb,var(--role-color) 38%,transparent);transform:rotate(45deg)}
+.spectator-eye{width:125px;height:78px;border:1px solid color-mix(in srgb,var(--role-color) 80%,white);border-radius:100% 0 100% 0;transform:rotate(45deg);display:grid;place-items:center}
+.spectator-eye:after{content:"";width:37px;height:37px;border:1px solid var(--role-color);border-radius:50%;box-shadow:inset 0 0 0 9px #111,inset 0 0 0 10px var(--role-color)}
+.spectator-orbit{position:absolute;width:175px;height:175px;border:1px dashed color-mix(in srgb,var(--role-color) 38%,transparent);border-radius:50%;transform:rotateX(70deg) rotateZ(-20deg);animation:orbit 16s linear infinite}
+.role-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:17px;transform:translateZ(20px)}
+.role-bottom-title{display:flex;align-items:center;gap:11px}
+.role-bottom h3{font-size:21px;letter-spacing:-.04em;margin:0}
+.role-bottom p{font-size:10px;color:#777;margin:4px 0 0}
+.role-dot{display:inline-block;width:10px;height:10px;flex:0 0 10px;border-radius:50%;background:var(--role-color);box-shadow:0 0 0 5px color-mix(in srgb,var(--role-color) 13%,transparent),0 0 18px color-mix(in srgb,var(--role-color) 55%,transparent)}
+.role-arrow{font-size:20px;color:#777}
+.role-description{font-size:11px;line-height:1.8;color:#999;max-width:290px;margin:16px 0 0;transform:translateZ(12px)}
+@media(max-width:900px){.role-card{min-height:410px}.role-art{height:200px}}
+@media(max-width:680px){.role-grid{grid-template-columns:1fr;gap:12px}.role-card{min-height:370px;padding:21px 19px}.role-art{height:185px}.role-bottom h3{font-size:20px}}

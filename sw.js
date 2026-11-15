@@ -1,4 +1,4 @@
-const C='dn-v15',SHELL=['./','index.html','game.html','game/','game/index.html','prezentare.css','prezentare.js','styles.css','app.js','qr.js','manifest.json','icon-192.png','icon-512.png','logo.png','offline.png','config.js',
+const C='dn-v17',SHELL=['./','index.html','game.html','game/','game/index.html','prezentare.css','prezentare.js','styles.css','app.js','qr.js','manifest.json','icon-192.png','icon-512.png','logo.png','offline.png','config.js',
 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css','https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>Promise.all(SHELL.map(u=>c.add(u).catch(()=>0)))));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!=C).map(x=>caches.delete(x)))));self.clients.claim()});

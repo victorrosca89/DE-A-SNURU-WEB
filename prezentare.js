@@ -134,10 +134,11 @@
     const isSafari = isIOS || (/safari/i.test(navigator.userAgent) && !/chrome|android/i.test(navigator.userAgent));
     if (isIOS) openInstallHelp('Pe iPhone sau iPad: apasă butonul Partajare din Safari, apoi „Adaugă la ecranul principal”.');
     else if (isSafari) openInstallHelp('Acest browser nu oferă promptul automat de instalare. Folosește opțiunea „Add to Dock” sau „Add to Home Screen”, dacă este disponibilă.');
-    else openInstallHelp('Instalarea nu este disponibilă în acest moment. Deschide pagina în Chrome sau Edge, verifică meniul browserului și caută opțiunea „Instalează aplicația”. Pagina trebuie servită prin HTTPS.');
+    else openInstallHelp('Instalarea automată nu este disponibilă în această fereastră. Deschide site-ul prin HTTPS în Chrome sau Edge, apoi folosește pictograma de instalare din bara de adrese ori opțiunea „Instalează DE-A ȘNURU” din meniul browserului. Pe iPhone/iPad, folosește Safari și opțiunea Partajare → Adaugă la ecranul principal.');
   }
   $('#installBtn')?.addEventListener('click', installApp);
   $('#installBtnBottom')?.addEventListener('click', installApp);
+  $('#installSectionBtn')?.addEventListener('click', installApp);
   $('#modalClose')?.addEventListener('click', closeInstallHelp);
   action?.addEventListener('click', closeInstallHelp);
   modal?.addEventListener('click', (e) => { if (e.target === modal) closeInstallHelp(); });

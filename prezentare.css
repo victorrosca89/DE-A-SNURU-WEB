@@ -81,3 +81,111 @@
 .role-description{font-size:11px;line-height:1.8;color:#999;max-width:290px;margin:16px 0 0;transform:translateZ(12px)}
 @media(max-width:900px){.role-card{min-height:410px}.role-art{height:200px}}
 @media(max-width:680px){.role-grid{grid-template-columns:1fr;gap:12px}.role-card{min-height:370px;padding:21px 19px}.role-art{height:185px}.role-bottom h3{font-size:20px}}
+
+
+/* Secțiune de instalare PWA + APK */
+.install-section{padding-top:115px;padding-bottom:115px;border-top:1px solid var(--line)}
+.install-heading{display:grid;grid-template-columns:1fr minmax(260px,390px);align-items:end;gap:45px;margin:28px 0 42px}
+.install-heading h2{font-size:clamp(45px,6vw,76px);line-height:.98;letter-spacing:-.075em;margin:0}
+.install-heading h2 em{font-family:Georgia,serif;font-weight:400;color:#aaa}
+.install-heading>p{font-size:12px;line-height:1.9;color:#999;margin:0 0 5px}
+.install-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.install-option{min-height:330px;display:flex;flex-direction:column;padding:26px;border:1px solid #ffffff1c;border-radius:17px;background:linear-gradient(145deg,#151517,#0a0a0b);transition:border-color .25s,transform .25s}
+.install-option:hover{transform:translateY(-3px);border-color:#ffffff45}
+.install-option-top{display:flex;align-items:center;justify-content:space-between}
+.install-option-icon{width:43px;height:43px;display:grid;place-items:center;border:1px solid #ffffff25;border-radius:13px;color:#fff;font-size:23px}
+.install-option-tag{font-size:8px;letter-spacing:.15em;color:#aaa;border:1px solid #ffffff25;border-radius:30px;padding:7px 10px}
+.install-option-copy{margin:29px 0 25px}
+.install-option-copy small{font-size:8px;letter-spacing:.16em;color:#888}
+.install-option-copy h3{font-size:27px;letter-spacing:-.05em;margin:10px 0}
+.install-option-copy p{max-width:440px;color:#999;font-size:11px;line-height:1.85;margin:0}
+.install-option-button{width:100%;min-height:48px;margin-top:auto;padding:0 17px;display:flex;align-items:center;justify-content:space-between;gap:15px;background:#f4f4f4;color:#090909;border:0;border-radius:7px;text-decoration:none;font:700 11px var(--font);cursor:pointer;transition:background .2s,transform .2s}
+.install-option-button:hover{background:#fff;transform:translateY(-1px)}
+.install-option-button span{font-size:17px}
+.install-option-note{font-size:9px;line-height:1.6;color:#747478;margin-top:13px}
+.install-safety-note{display:flex;align-items:flex-start;gap:9px;color:#777;font-size:9px;line-height:1.7;margin:22px 0 0}
+.install-safety-note span{color:#bbb}
+@media(max-width:680px){.install-section{padding:85px 23px}.install-heading{grid-template-columns:1fr;gap:19px;margin:25px 0 28px}.install-heading h2{font-size:clamp(43px,11vw,62px)}.install-heading>p{font-size:11px}.install-options{grid-template-columns:1fr;gap:11px}.install-option{min-height:300px;padding:21px}.install-option-copy{margin:24px 0 22px}.install-option-copy h3{font-size:24px}}
+
+
+/* Ajustări responsive: navigare compactă și layout mobil fără overflow */
+html{scroll-padding-top:78px; -webkit-text-size-adjust:100%;}
+body{overflow-x:hidden;}
+img,svg,video,canvas{max-width:100%;}
+.topbar{padding-left:clamp(16px,4vw,54px);padding-right:clamp(16px,4vw,54px);}
+.top-actions{flex-shrink:0;}
+.join-btn{white-space:nowrap;}
+.install-btn{white-space:nowrap;}
+.hero-buttons a{white-space:nowrap;}
+.install-option-button{font-size:11px;}
+@media(max-width:900px){
+  .topbar{gap:14px;}
+  .desktop-nav{gap:14px;margin-left:1vw;}
+  .desktop-nav a{font-size:11px;}
+  .top-actions{gap:8px;}
+}
+@media(max-width:680px){
+  .topbar{height:64px;padding:0 13px;gap:8px;}
+  .brand{gap:7px;min-width:0;font-size:11px;white-space:nowrap;}
+  .brand img{width:27px;height:27px;object-fit:contain;}
+  .top-actions{gap:6px;}
+  .install-btn{height:35px;padding:0 9px;gap:5px;font-size:9px;letter-spacing:-.02em;}
+  .install-icon{font-size:14px;}
+  .join-btn{height:35px;min-width:48px;justify-content:center;padding:0 11px;font-size:10px;gap:5px;}
+  .join-btn span{font-size:13px;}
+  .menu-toggle{padding:7px 5px;}
+  .hero{min-height:760px;padding:0 20px 82px;}
+  .hero-content{max-width:100%;}
+  .hero-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;}
+  .hero-buttons .primary-cta,.hero-buttons .secondary-cta{width:100%;min-width:0;height:44px;padding:0 10px;gap:7px;font-size:9px;letter-spacing:-.02em;}
+  .hero-buttons .primary-cta span,.hero-buttons .secondary-cta span{font-size:13px;}
+  .section-shell{padding-left:20px;padding-right:20px;}
+  .role-card{width:100%;min-width:0;}
+  .install-section{padding:72px 20px 78px;}
+  .install-heading{gap:14px;}
+  .install-heading h2{font-size:clamp(39px,10.5vw,55px);overflow-wrap:anywhere;}
+  .install-options{grid-template-columns:minmax(0,1fr);}
+  .install-option{min-height:0;padding:19px;border-radius:14px;}
+  .install-option-copy{margin:21px 0 20px;}
+  .install-option-copy h3{font-size:22px;}
+  .install-option-copy p{font-size:11px;line-height:1.75;}
+  .install-option-button{min-height:46px;font-size:10px;}
+  .install-safety-note{font-size:9px;}
+  .final-cta{padding-left:20px;padding-right:20px;}
+}
+@media(max-width:380px){
+  .topbar{padding:0 10px;}
+  .brand{font-size:10px;gap:5px;}
+  .brand img{width:24px;height:24px;}
+  .install-btn{padding:0 7px;font-size:8px;}
+  .join-btn{min-width:42px;padding:0 8px;font-size:9px;}
+  .menu-toggle i{width:18px;}
+  .hero{padding-left:17px;padding-right:17px;}
+  .hero-buttons .primary-cta,.hero-buttons .secondary-cta{font-size:8px;padding:0 7px;}
+  .section-shell{padding-left:17px;padding-right:17px;}
+  .install-section{padding-left:17px;padding-right:17px;}
+}
+@media(prefers-reduced-motion:reduce){.install-option:hover,.primary-cta:hover{transform:none;}}
+
+
+/* Finisare mobil: header compact, CTA lizibile și fără coordonate afișate */
+.map-coordinates{display:none!important;}
+.join-btn{min-width:54px;justify-content:center;}
+@media(max-width:680px){
+  .topbar{width:100%;padding-left:clamp(9px,3vw,16px);padding-right:clamp(9px,3vw,16px);gap:6px;}
+  .brand{flex:1 1 auto;min-width:0;font-size:clamp(9px,2.8vw,11px);gap:5px;}
+  .brand img{width:25px;height:25px;flex:0 0 auto;}
+  .top-actions{flex:0 0 auto;gap:5px;}
+  .install-btn{height:34px;padding:0 8px;font-size:clamp(8px,2.5vw,9px);gap:4px;}
+  .install-btn .install-icon{font-size:13px;}
+  .join-btn{height:34px;min-width:43px;padding:0 10px;font-size:10px;letter-spacing:0;}
+  .menu-toggle{padding:6px 3px;}
+  .hero-buttons .primary-cta,.hero-buttons .secondary-cta{font-size:clamp(8px,2.6vw,10px);letter-spacing:0;padding-left:7px;padding-right:7px;gap:5px;}
+}
+@media(max-width:360px){
+  .brand{font-size:9px;gap:4px;}
+  .brand img{width:22px;height:22px;}
+  .install-btn{padding:0 6px;font-size:8px;}
+  .join-btn{min-width:39px;padding:0 8px;font-size:9px;}
+  .top-actions{gap:4px;}
+}
